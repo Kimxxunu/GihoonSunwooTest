@@ -41,7 +41,6 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-
       # create application.yml
       - name: make application-aws.yml
         if: contains(github.ref, 'release')
@@ -53,8 +52,8 @@ jobs:
           touch ./application-aws.yml
           
           # GitHub-Actions에서 설정한 값을 application-aws.yml 파일에 쓰기
-          echo "AKIA45XEROLPFPEDZX6Y"
-          echo "${{ PcDey2yYmX5ALA6jYEQ7VpM/Hh/KPsMPePlmrvCG }}" > ./application-aws.yml
+          echo "AKIA45XEROLPFPEDZX6Y" > ./application-aws.yml
+          echo "${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM_Hh_KPsMPePlmrvCG }}" >> ./application-aws.yml
         shell: bash
 
       # create key.p8 file
@@ -69,8 +68,8 @@ jobs:
           touch ./AuthKey.p8
           
           # GitHub-Actions에서 설정한 값 파일에 쓰기
-          echo "AKIA45XEROLPFPEDZX6Y"
-          echo "${{ PcDey2yYmX5ALA6jYEQ7VpM/Hh/KPsMPePlmrvCG }}" > ./AuthKey.p8
+          echo "AKIA45XEROLPFPEDZX6Y" > ./AuthKey.p8
+          echo "${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM_Hh_KPsMPePlmrvCG }}" >> ./AuthKey.p8
         shell: bash
 
       # gradlew 파일 실행권한 설정
@@ -87,15 +86,15 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ AKIA45XEROLPFPEDZX6Y }}
-          aws-secret-access-key: ${{ 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 }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AKIA45XEROLPFPEDZX6Y }}
+          aws-secret-access-key: ${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM_Hh_KPsMPePlmrvCG }}
+          aws-region: ${{ env.ap-northeast-2 }}
 
       # 빌드 결과물을 S3 버킷에 업로드
       - name: Upload to AWS S3
         run: |
           aws deploy push \
-            --application-name ${{ spring-boot-codedeploy-app-test }} \
+            --application-name ${{ env.github-actions-s3-bucket-sunwoo }} \
             --ignore-hidden-files \
             --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
             --source .
@@ -104,7 +103,7 @@ jobs:
       - name: Deploy to AWS EC2 from S3
         run: |
           aws deploy create-deployment \
-            --application-name ${{ spring-boot-codedeploy-app-test }} \
+            --application-name ${{ env.spring-boot-codedeploy-app-test }} \
             --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --deployment-group-name ${{ spring-boot-codedeploy-test-group }} \
+            --deployment-group-name ${{ env.spring-boot-codedeploy-test-group }} \
             --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
