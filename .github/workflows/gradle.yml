@@ -47,13 +47,14 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ AKIA45XEROLPFPEDZX6Y }}
-          aws-secret-access-key: ${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM/Hh/KPsMPePlmrvCG }}
+          aws-access-key-id: ${{ secrets.AKIA45XEROLPFPEDZX6Y }}
+          aws-secret-access-key: ${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM_Hh_KPsMPePlmrvCG }}
           aws-region: ${{ env.AWS_REGION }}
 
 
 
-      # create application.yml
+
+          # create application.yml
       - name: make application-aws.yml
         if: contains(github.ref, 'release')
         run: |
