@@ -46,9 +46,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM/Hh/KPsMPePlmrvCG }}
           aws-region: ${{ env.AWS_REGION }}
 
-
-
-          # create application.yml
+          # create application.yml1
       - name: make application-aws.yml
         if: contains(github.ref, 'release')
         run: |
