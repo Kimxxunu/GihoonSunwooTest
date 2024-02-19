@@ -94,17 +94,17 @@ jobs:
       - name: Upload to AWS S3
         run: |
           aws deploy push \
-            --application-name ${{ env.S3_BUCKET_NAME }} \
+            --application-name ${{ env.CODE_DEPLOY_APP_NAME }} \  # CodeDeploy 애플리케이션의 이름으로 변경
             --ignore-hidden-files \
             --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
             --source .
-      
 
       # S3 버킷에 있는 파일을 대상으로 CodeDeploy 실행
       - name: Deploy to AWS EC2 from S3
         run: |
           aws deploy create-deployment \
-            --application-name ${{ env.spring-boot-codedeploy-app-test }} \
+            --application-name ${{ env.CODE_DEPLOY_APP_NAME }} \  # CodeDeploy 애플리케이션의 이름으로 변경
             --deployment-config-name CodeDeployDefault.AllAtOnce \
-            --deployment-group-name ${{ env.spring-boot-codedeploy-test-group }} \
+            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \  # CodeDeploy 배포 그룹의 이름으로 변경
             --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
+      
