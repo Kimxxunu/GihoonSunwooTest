@@ -39,27 +39,8 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Make Gradlew executable
-        run: chmod +x ./gradlew
 
-      - name: Verify Gradlew exists
-        run: test -f ./gradlew
-
-      - name: Print Gradlew version
-        run: ./gradlew --version
-
-      - name: Print project files and directories
-        run: |
-          ls -al
-          ls -al ./src/main/resources
-
-      - name: Build with Gradle
-        run: ./gradlew clean --stacktrace --info build
-
-      - name: Verify AWS CLI
-        run: aws --version
-
-      # AWS 자격 증명 업데이트
+      # AWS 자격 증명 업데이트1
       - name: ConfigureAWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
