@@ -49,7 +49,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AKIA45XEROLPFPEDZX6Y  }}
           aws-secret-access-key: ${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM/Hh/KPsMPePlmrvCG  }}
-          aws-region: ${{ env.ap-northeast-2 }}
+          aws-region: ${{ ap-northeast-2 }}
 
 
           # create application.yml
