@@ -40,15 +40,6 @@ jobs:
           distribution: 'temurin'
 
 
-      # AWS 자격 증명 업데이트1
-      - name: ConfigureAWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          aws-access-key-id: ${{ secrets.AKIA45XEROLPFPEDZX6Y  }}
-          aws-secret-access-key: ${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM/Hh/KPsMPePlmrvCG  }}
-          aws-region: ${{ secrets.ap-northeast-2 }}
-
-
           # create application.yml
       - name: make application-aws.yml
         if: contains(github.ref, 'release')
