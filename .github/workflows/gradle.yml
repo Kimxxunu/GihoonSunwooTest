@@ -21,8 +21,6 @@ env:
   S3_BUCKET_NAME: github-actions-s3-bucket-sunwoo
   CODE_DEPLOY_APP_NAME: spring-boot-codedeploy-app-test
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: spring-boot-codedeploy-test-group
-  #AWS_ACCESS_KEY_ID: AKIA45XEROLPFPEDZX6Y
-  #AWS_SECRET_ACCESS_KEY: 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
 
 permissions:
   contents: read
@@ -58,9 +56,9 @@ jobs:
           ls -al
           touch ./application-aws.yml
           
-          # GitHub-Actions에서 설정한 값을 application-aws.yml 파일에 쓰기
-          echo "AKIA45XEROLPFPEDZX6Y" > ./application-aws.yml
-          echo "${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM_Hh_KPsMPePlmrvCG }}" >> ./application-aws.yml
+           # GitHub-Actions에서 설정한 값을 application-aws.yml 파일에 쓰기
+          echo "copy properties"
+          echo "${{ secrets.AWS_PROPERTIES }}" > ./application-aws.yml
         shell: bash
 
       # create key.p8 file
@@ -74,9 +72,9 @@ jobs:
           ls -al
           touch ./AuthKey.p8
           
-          # GitHub-Actions에서 설정한 값 파일에 쓰기
-          echo "AKIA45XEROLPFPEDZX6Y" > ./AuthKey.p8
-          echo "${{ secrets.PcDey2yYmX5ALA6jYEQ7VpM_Hh_KPsMPePlmrvCG }}" >> ./AuthKey.p8
+           # GitHub-Actions에서 설정한 값 파일에 쓰기
+          echo "copy APPLE_SECRET_KEY"
+          echo "${{ secrets.APPLE_SECRET_KEY }}" > ./AuthKey.p8
         shell: bash
 
       # gradlew 파일 실행권한 설정
