@@ -21,8 +21,8 @@ env:
   S3_BUCKET_NAME: github-actions-s3-bucket-sunwoo
   CODE_DEPLOY_APP_NAME: spring-boot-codedeploy-app-test
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: spring-boot-codedeploy-test-group
-  AWS_ACCESS_KEY_ID: AKIA45XEROLPFPEDZX6Y
-  AWS_SECRET_ACCESS_KEY: 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
+  #AWS_ACCESS_KEY_ID: AKIA45XEROLPFPEDZX6Y
+  #AWS_SECRET_ACCESS_KEY: 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
 
 permissions:
   contents: read
@@ -48,7 +48,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-          # create application.yml1
+          # create application.yml
       - name: make application-aws.yml
         if: contains(github.ref, 'release')
         run: |
