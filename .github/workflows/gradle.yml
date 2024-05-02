@@ -48,17 +48,19 @@ jobs:
 
           # create application.yml
       - name: make application-aws.yml
-        if: contains(github.ref, 'release')
+        if: github.ref == 'refs/heads/main'
         run: |
           # spring의 resources 경로로 이동
           cd ./src/main/resources
           
-          ls -al
-          touch ./application-aws.yml
+          # 해당 디렉토리에 application.yml 파일이 이미 존재하는지 확인하고, 없으면 생성합니다.
+          if [ ! -f application.yml ]; then
+          touch ./application.yml
+          fi
           
-           # GitHub-Actions에서 설정한 값을 application-aws.yml 파일에 쓰기
+          # GitHub Actions에서 설정한 값을 application.yml 파일에 쓰기
           echo "copy properties"
-          echo "${{ secrets.AWS_PROPERTIES }}" > ./application-aws.yml
+          echo "${{ secrets.APPLICATION }}" > ./application.yml
         shell: bash
 
       # create key.p8 file
@@ -105,6 +107,5 @@ jobs:
             --deployment-config-name CodeDeployDefault.AllAtOnce \
             --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
             --s3-location bucket=${{ env.S3_BUCKET_NAME }},key=${{ github.sha }}.zip,bundleType=zip
-      
       
       
